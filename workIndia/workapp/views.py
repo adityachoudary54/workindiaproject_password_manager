@@ -68,9 +68,16 @@ def showStoredPasswords(request):
         user = User.objects.get(id=user_id)
         password=Passwords.objects.all().filter(user=user)
         print(list(password))
-        password=str(list(password))
+        res=[]
+        for item in password:
+            res.append({
+                'password':item.password,
+                'website':item.website
+            })
+        print(res)
+        password=str(list(res))
         return JsonResponse({
-            'Response Data':password
+            'Response Data':res
         })
     except:
         print('hello')
